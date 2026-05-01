@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import { getLocale, getMessages } from "next-intl/server"
 import { NextIntlClientProvider } from "next-intl"
 import { ReactNode } from "react"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -36,7 +37,7 @@ export default async function RootLayout({
       <body>
         <ThemeProvider>
           <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
+            <TooltipProvider>{children}</TooltipProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>
