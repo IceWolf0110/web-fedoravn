@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl"
-import { LanguageSwitcher } from "@/components/button/language-switcher"
+import { LanguageSwitcher } from "components/button/language-switcher"
 
 export default function Page() {
   const t = useTranslations()
