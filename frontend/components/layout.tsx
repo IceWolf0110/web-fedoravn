@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { getLocale, getMessages } from "next-intl/server"
+import { Header } from "@/components/header"
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -17,6 +18,7 @@ export function WebLayout({ children }: { children: ReactNode }) {
   return (
     <BaseLayout>
       <main className="flex min-h-screen flex-col">
+        <Header />
         <section className="flex-1">{children}</section>
       </main>
     </BaseLayout>

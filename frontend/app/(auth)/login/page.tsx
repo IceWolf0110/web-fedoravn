@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { FaGoogle } from "react-icons/fa"
 
-import Image from "next/image"
 import Link from "next/link"
 
 import {
