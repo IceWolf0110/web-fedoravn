@@ -1,58 +1,60 @@
 "use client"
-
-import { useLocale } from "next-intl"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { useLocale, useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
-import { useTransition } from "react"
-import { setLocale } from "actions/set-locale"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
+import { ComponentProps, useTransition } from "react"
+import { setLocale } from "@/actions/set-locale"
 
-export function LanguageSwitcher() {
+const items = [
+  { label: "language.en", value: "en" },
+  { label: "language.vi", value: "vi" },
+]
+
+export function LanguageSwitcher({ sideOffset = 0 }: ComponentProps<typeof SelectContent>) {
+  const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
   function changeLocale(nextLocale: "en" | "vi") {
     if (nextLocale === locale) return
-
     startTransition(async () => {
       await setLocale(nextLocale)
       router.refresh()
     })
   }
 
-  return (
-    <div className="inline-flex overflow-hidden rounded-md border">
-      <Button
-        type="button"
-        variant="ghost"
-        onClick={() => changeLocale("en")}
-        disabled={isPending}
-        className={cn(
-          "h-9 rounded-none px-4 text-base",
-          "border-r",
-          locale === "en"
-            ? "bg-primary text-primary-foreground hover:bg-primary/90"
-            : "hover:bg-muted"
-        )}
-      >
-        🇺🇸 EN
-      </Button>
+  const label = items.find((item) => item.value === locale)?.label ?? ""
 
-      <Button
-        type="button"
-        variant="ghost"
-        onClick={() => changeLocale("vi")}
-        disabled={isPending}
-        className={cn(
-          "h-9 rounded-none px-4 text-base",
-          locale === "vi"
-            ? "bg-primary text-primary-foreground hover:bg-primary/90"
-            : "hover:bg-muted"
-        )}
+  return (
+    <Select
+      disabled={isPending}
+      value={t(label)}
+      onValueChange={(value) => changeLocale(value as "en" | "vi")}
+    >
+      <SelectTrigger className="w-36">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent
+        sideOffset={sideOffset}
+        className="w-32"
+        alignItemWithTrigger={false}
       >
-        🇻🇳 VI
-      </Button>
-    </div>
+        <SelectGroup>
+          {items.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {t(item.label)}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   )
 }

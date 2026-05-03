@@ -1,4 +1,8 @@
 {
+  "language": {
+    "en": "\uD83C\uDDFA\uD83C\uDDF8 \u00A0English",
+    "vi": "\uD83C\uDDFB\uD83C\uDDF3 \u00A0Vietnamese"
+  },
   "menu-home": "Home",
   "menu-start": "Getting Started",
   "menu-guides": "Guides",
