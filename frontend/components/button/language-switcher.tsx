@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select"
 import { useLocale, useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
-import { ComponentProps, useTransition } from "react"
+import { useTransition } from "react"
 import { setLocale } from "@/actions/set-locale"
 
 const items = [
@@ -17,7 +17,7 @@ const items = [
   { label: "language.vi", value: "vi" },
 ]
 
-export function LanguageSwitcher({ sideOffset = 0 }: ComponentProps<typeof SelectContent>) {
+export function LanguageSwitcher({ sideOffset = 0 }: { sideOffset: number }) {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
