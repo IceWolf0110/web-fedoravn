@@ -1,4 +1,5 @@
 "use client"
+
 import {
   Select,
   SelectContent,
@@ -7,10 +8,65 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
+import { useRouter } from "next/navigation"
+import { useEffect, useState, useTransition } from "react"
+import { setLocale } from "@/actions/set-locale"
+import { Monitor, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Sun, Moon, Monitor } from "lucide-react"
-import { useEffect, useState } from "react"
+
+const itemsLanguage = [
+  { label: "language.en", value: "en" },
+  { label: "language.vi", value: "vi" },
+]
+
+export function LanguageSwitcher({
+  sideOffset = 0,
+  className = "",
+}: {
+  sideOffset?: number
+  className?: string
+}) {
+  const t = useTranslations()
+  const locale = useLocale()
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
+  function changeLocale(nextLocale: "en" | "vi") {
+    if (nextLocale === locale) return
+    startTransition(async () => {
+      await setLocale(nextLocale)
+      router.refresh()
+    })
+  }
+
+  const label = itemsLanguage.find((item) => item.value === locale)?.label ?? ""
+
+  return (
+    <Select
+      disabled={isPending}
+      value={t(label)}
+      onValueChange={(value) => changeLocale(value as "en" | "vi")}
+    >
+      <SelectTrigger className="w-36">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent
+        sideOffset={sideOffset}
+        className={className}
+        alignItemWithTrigger={false}
+      >
+        <SelectGroup>
+          {itemsLanguage.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {t(item.label)}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
+}
 
 const items = [
   { label: "theme.light", value: "light", icon: Sun },
@@ -35,10 +91,10 @@ export function ThemeSwitcher({
   }, [])
 
   const handleThemeChange = (value: string | null) => {
-    setTheme(value ?? 'system')
+    setTheme(value ?? "system")
   }
 
-  const currentItem = mounted ? items.find((i) => i.value === theme) : items[2] // fallback to "system"
+  const currentItem = mounted ? items.find((i) => i.value === theme) : items[3] // fallback to "system"
   const CurrentIcon = currentItem?.icon
 
   if (!mounted) {

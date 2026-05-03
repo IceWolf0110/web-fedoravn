@@ -1,6 +1,6 @@
-import { LanguageSwitcher } from "@/components/button/language-switcher"
+import { LanguageSwitcher } from "@/components/button"
 import { useTranslations } from "next-intl"
-import { ThemeSwitcher } from "@/components/button/theme-switcher"
+import { ThemeSwitcher } from "@/components/button"
 
 export function Header() {
   return (
