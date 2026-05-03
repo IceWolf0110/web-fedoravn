@@ -17,7 +17,7 @@ const items = [
   { label: "language.vi", value: "vi" },
 ]
 
-export function LanguageSwitcher({ sideOffset = 0 }: { sideOffset: number }) {
+export function LanguageSwitcher({ sideOffset = 0 }: { sideOffset?: number }) {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()

@@ -6,7 +6,7 @@ export default function Page() {
 
   return (
     <div>
-      <LanguageSwitcher sideOffset={14}/>
+      <LanguageSwitcher />
     </div>
   )
 }
