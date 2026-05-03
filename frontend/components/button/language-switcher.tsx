@@ -17,7 +17,13 @@ const items = [
   { label: "language.vi", value: "vi" },
 ]
 
-export function LanguageSwitcher({ sideOffset = 0 }: { sideOffset?: number }) {
+export function LanguageSwitcher({
+  sideOffset = 0,
+  className = "",
+}: {
+  sideOffset?: number
+  className?: string
+}) {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
@@ -44,7 +50,7 @@ export function LanguageSwitcher({ sideOffset = 0 }: { sideOffset?: number }) {
       </SelectTrigger>
       <SelectContent
         sideOffset={sideOffset}
-        className="w-32"
+        className={className}
         alignItemWithTrigger={false}
       >
         <SelectGroup>

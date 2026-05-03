@@ -1,5 +1,6 @@
 import { LanguageSwitcher } from "@/components/button/language-switcher"
 import { useTranslations } from "next-intl"
+import { ThemeSwitcher } from "@/components/button/theme-switcher"
 
 export function Header() {
   return (
@@ -17,8 +18,9 @@ export function HeaderPc() {
 
   return (
     <div className="hidden md:block">
-      <div className="h-14 flex flex-1 justify-end items-center">
-        <LanguageSwitcher sideOffset={14}/>
+      <div className="flex h-14 flex-1 items-center justify-end gap-3">
+        <LanguageSwitcher sideOffset={14} />
+        <ThemeSwitcher sideOffset={14} />
       </div>
     </div>
   )
